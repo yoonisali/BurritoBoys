@@ -20,12 +20,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-{/* <div>
-  Header
-  SignIn/Out
-  BurritoControl
-</div> */}
