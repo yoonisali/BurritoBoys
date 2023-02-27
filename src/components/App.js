@@ -9,8 +9,8 @@ function App() {
   return (
     <Router>
     <div className="App">
-    <Routes>
         <Header />
+    <Routes>
       <Route path="/sign-in" element={<SignIn />} />
         <Route path="/" element={<TopStories />} />
       </Routes>
