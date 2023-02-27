@@ -1,5 +1,6 @@
 import React from "react";
 import SignIn from "./SignIn";
+import Header from "./Header";
 import TopStories from "./TopStories";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -9,7 +10,8 @@ function App() {
     <Router>
     <div className="App">
     <Routes>
-        <Route path="/sign-in" element={<SignIn />} />
+        <Header />
+      <Route path="/sign-in" element={<SignIn />} />
         <Route path="/" element={<TopStories />} />
       </Routes>
     </div>
