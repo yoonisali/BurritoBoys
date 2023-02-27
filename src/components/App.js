@@ -9,23 +9,14 @@ function App() {
   return (
     <Router>
     <div className="App">
-    <Routes>
         <Header />
-      <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/" element={<TopStories />} />
-      </Routes>
+        <Routes>
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/" element={<TopStories />} />
+        </Routes>
     </div>
     </Router>
   );
 }
 
 export default App;
-
-
-
-
-{/* <div>
-  Header
-  SignIn/Out
-  BurritoControl
-</div> */}
