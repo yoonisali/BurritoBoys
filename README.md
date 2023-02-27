@@ -6,6 +6,13 @@
 
 ![Project Diagram](./src/assets/img/diagram.png) 
 
+### API Setup
+1. add .env file to root directory
+2. input the following code 
+```js
+REACT_APP_API_KEY=[Your NYT API key goes here]
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
