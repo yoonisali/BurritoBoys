@@ -45,40 +45,50 @@ function SignIn(){
 
 
   return (
-    <div className="sign-in">
-      <h1>Sign up</h1>
+    <React.Fragment>
+    <div className="sign">
+
+      <div className="sign-up rounded">
+      <h1 className="text-2xl">Sign up</h1><br/>
       {signUpSuccess}
       <form onSubmit={doSignUp}>
         <input
           type='text'
           name='email'
-          placeholder='email' />
+          placeholder='Email Address' /><br/><br/>
         <input
           type='password'
           name='password'
-          placeholder='Password' />
-        <button type='submit'>Sign up</button>
+          placeholder='Password' /><br/><br/>
+        <button className="hover:bg-green-400 p-1 rounded" type='submit'>Sign up</button>
       </form>
+    </div><br/><br/>
 
-      <h1>Sign In</h1>
+    
+    <div className="sign-in rounded">
+      <h1 className="text-2xl">Sign In</h1><br/>
       {signInSuccess}
       <form onSubmit={doSignIn}>
         <input
           type='text'
           name='signinEmail'
-          placeholder='email' />
+          placeholder='Email Address' /><br/><br/>
         <input
           type='password'
           name='signinPassword'
-          placeholder='Password' />
-        <button type='submit'>Sign in</button>
+          placeholder='Password' /><br/><br/>
+        <button className="hover:bg-green-400 p-1 rounded" type='submit'>Sign in</button>
       </form>
+      </div>
+      </div>
 
-      <h1>Sign Out</h1>
+    <div className="sign-out">
       {signOutSuccess}
       <br />
-      <button onClick={doSignOut}>Sign out</button>
+      <button className="bg-yellow-500 rounded p-1 hover:bg-green-400" onClick={doSignOut}>Sign out</button>
     </div>
+    
+    </React.Fragment>
   );
 };
 

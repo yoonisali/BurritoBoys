@@ -11,3 +11,72 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.sign {
+  display: flex;
+  /* width: 50%; */
+  text-align: center;
+}
+
+.sign-up {
+  flex: 1;
+  font-weight: bold;
+  border: 2px solid black;
+  /* max-width: fit-content; */
+  padding: 10px;
+  margin-top: 40px;
+  margin-left: 40px;
+  margin-right: 40px;
+  display:inline-block;
+  text-align:center;
+  background-color: #EAB305;
+}
+
+.sign-up:first-child {
+  margin-right: 20px;
+}
+
+
+.sign-up input {
+  text-align: center;
+  border: 2px solid black;
+}
+
+.sign-up button {
+  border: 2px solid black;
+}
+
+
+.sign-in {
+  flex: 1;
+  font-weight: bold;
+  border: 2px solid black;
+  /* max-width: fit-content; */
+  margin-top: 40px;
+  margin-right: 40px;
+  margin-left: 40px;
+  padding: 10px;
+  display:inline-block;
+  text-align:center;
+  background-color: #EAB305;
+}
+
+.sign-in input {
+  text-align: center;
+  border: 2px solid black;
+}
+
+.sign-in button {
+  border: 2px solid black;
+}
+
+
+.sign-out {
+  margin-top: 30px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.sign-out button {
+  border: 2px solid black;
+}
