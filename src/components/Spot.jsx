@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 function Spot(props) {
   return(
     <div>
-      <p>Spot Name: {props.name}</p>
+      <p>Name: {props.name}</p>
+      <p>City: {props.city}</p>
     </div>
   );
 }
