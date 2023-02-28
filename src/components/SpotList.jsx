@@ -1,66 +1,61 @@
-import React, { useReducer, useEffect } from "react";
-import { getAllSpots, getAllSpotsFailure } from "../actions";
-import spotsReducer from "../reducers/spots-reducer";
-import * as c from "../actions/ActionTypes";
+import React, { useState, useEffect } from "react";
+import Spot from './Spot'
 
-const initialState = {
-  isLoaded: false,
-  spotList: [],
-  error: null
-};
 
 function SpotList() {
-  const [state, dispatch] = useReducer(spotsReducer, initialState)
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [spotList, setSpotList] = useState([]);
+  const [error, setError] = useState(null)
+
 
   useEffect(() => {
-    fetch(`https://localhost:7153/api/Spot`, {"mode": "no-cors"})
-        .then(response => {
-            if (!response.ok) {
-                console.log(JSON.stringify(response))
-                dispatch({"type": c.GET_ALL_SPOTS_FAILURE, "error":`${response.status}: ${response.statusText}`});
-            } else {
-                response.json()
-                  .then((jsonRes) => {
-                    dispatch({"type": c.GET_ALL_SPOTS, "spotList": jsonRes})
-                  })
-                  .catch((err) => {
-                    dispatch({"type": c.GET_ALL_SPOTS_FAILURE, "error": err });
-                  })
-            }
+    async function getSpotList(spot) {
+      return new Promise((resolve, reject) => {
+        fetch("/api/Spot", {
+          "method": "GET"
+        }).then((res) => {
+          res.json()
+            .then((jres) => {
+              setSpotList(jres);
+              setIsLoaded(true);
+              console.log(`Fetch response: ${JSON.stringify(jres)}`)
+              resolve()
+            })
+            .catch((err) => {
+              setIsLoaded(true);
+              console.log(`failed to jsonify response: ${err}`)
+              reject(err)
+            })
         })
-        .then((jsonifiedResponse) => {
-            const action = getAllSpots(jsonifiedResponse.results)
-            dispatch(action);
-        })
-        .catch((error) => {
-            const action = getAllSpotsFailure(error.message)
-            dispatch(action);
-        });
-}, [])
+          .catch((err) => {
+            console.log(`Fetch error: ${err}`)
+            reject(err)
+          })
+      });
+    }
+    getSpotList();
+  }, [])
 
-  const { error, isLoaded, spotList} = state;
-
-  console.log(spotList);
   if (error) {
-    return <h1>Error: {error}</h1>
+    return <h1>Error: {error.message}</h1>
   } else if (!isLoaded) {
     return <h1>...Loading...</h1>
   } else {
     return (
       <div>
         <h1>Spot List</h1>
-        <ul>
         {spotList.map((spot, index) =>
-        <li key={index}>
-          <hr />
-          <h3>{spot.name}</h3>
-          <h3>{spot.city}</h3>
-        </li>
+          <div key={index}>
+            <Spot
+              name={spot.name}
+              city={spot.city}
+            />
+          </div>
         )}
-        </ul>
       </div>
     );
   }
 }
+
 
 export default SpotList;
