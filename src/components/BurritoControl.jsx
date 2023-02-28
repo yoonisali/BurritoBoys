@@ -38,6 +38,7 @@ function BurritoControl() {
   } else if(formVisibleOnPage) {
     currVisibleState = <NewSpotForm 
     onNewSpotCreation={handleAddingNewSpotToList}
+    onClick={handleClick}
     />
     buttonText="Return to Spot List!";
 

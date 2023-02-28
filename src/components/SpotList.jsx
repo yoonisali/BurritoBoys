@@ -1,8 +1,7 @@
 import React, { useReducer, useEffect } from "react";
 import { getAllSpots, getAllSpotsFailure } from "../actions";
 import spotsReducer from "../reducers/spots-reducer";
-
-
+import * as c from "../actions/ActionTypes";
 
 const initialState = {
   isLoaded: false,
@@ -14,12 +13,19 @@ function SpotList() {
   const [state, dispatch] = useReducer(spotsReducer, initialState)
 
   useEffect(() => {
-    fetch(`https://localhost:7153/api/Spot`)
+    fetch(`https://localhost:7153/api/Spot`, {"mode": "no-cors"})
         .then(response => {
             if (!response.ok) {
-                throw new Error(`${response.status}: ${response.statusText}`);
+                console.log(JSON.stringify(response))
+                dispatch({"type": c.GET_ALL_SPOTS_FAILURE, "error":`${response.status}: ${response.statusText}`});
             } else {
-                return response.json()
+                response.json()
+                  .then((jsonRes) => {
+                    dispatch({"type": c.GET_ALL_SPOTS, "spotList": jsonRes})
+                  })
+                  .catch((err) => {
+                    dispatch({"type": c.GET_ALL_SPOTS_FAILURE, "error": err });
+                  })
             }
         })
         .then((jsonifiedResponse) => {
