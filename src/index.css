@@ -14,7 +14,6 @@ code {
 
 .sign {
   display: flex;
-  /* width: 50%; */
   text-align: center;
 }
 
@@ -22,7 +21,6 @@ code {
   flex: 1;
   font-weight: bold;
   border: 2px solid black;
-  /* max-width: fit-content; */
   padding: 10px;
   margin-top: 40px;
   margin-left: 40px;
@@ -36,7 +34,6 @@ code {
   margin-right: 20px;
 }
 
-
 .sign-up input {
   text-align: center;
   border: 2px solid black;
@@ -46,12 +43,10 @@ code {
   border: 2px solid black;
 }
 
-
 .sign-in {
   flex: 1;
   font-weight: bold;
   border: 2px solid black;
-  /* max-width: fit-content; */
   margin-top: 40px;
   margin-right: 40px;
   margin-left: 40px;
@@ -69,7 +64,6 @@ code {
 .sign-in button {
   border: 2px solid black;
 }
-
 
 .sign-out {
   margin-top: 30px;

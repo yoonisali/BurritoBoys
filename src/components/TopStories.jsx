@@ -36,10 +36,6 @@ function TopStories() {
 
     const topTenStories = topStories.slice(0,10);
 
-    // for(i=0; i < 10; i++) {
-    //     topTenStories.push(article);
-    // }
-    // })
     if (error) {
         return <h1>Error: {error}</h1>;
     } else if (!isLoaded) {
