@@ -1,11 +1,11 @@
 import * as c from './ActionTypes';
 
-export const getTopStoriesSuccess = (topStories) => ({
-  type: c.GET_TOP_STORIES_SUCCESS,
-  topStories
+export const getAllSpots = (spotList) => ({
+  type: c.GET_ALL_SPOTS,
+  spotList
 });
 
-export const getTopStoriesFailure = (error) => ({
-  type: c.GET_TOP_STORIES_FAILURE,
+export const getAllSpotsFailure = (error) => ({
+  type: c.GET_ALL_SPOTS_FAILURE,
   error
 });
