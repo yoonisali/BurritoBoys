@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer } from "react";
-import topStoriesReducer from './../reducers/top-stories-reducer';
-import { getTopStoriesFailure, getTopStoriesSuccess } from './../actions/index';
+import topStoriesReducer from '../reducers/top-stories-reducer';
+import { getTopStoriesFailure, getTopStoriesSuccess } from '../actions/index';
 
 
 const initialState = {
