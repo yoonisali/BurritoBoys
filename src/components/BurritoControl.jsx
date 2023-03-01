@@ -3,35 +3,62 @@ import SpotDetails from "./SpotDetails";
 import SpotList from "./SpotList";
 import NewSpotForm from "./NewSpotForm";
 import NewSalsaForm from "./NewSalsaForm"
+import TopSpots from './TopSpots'
 
 
 function BurritoControl() {
   const [selectedSpot, setSelectedSpot] = useState(null)
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false)
   const [spotList, setSpotList] = useState([]);
+  const [topSpots, setTopSpots] = useState([])
 
   useEffect(() => {
-    async function getSpotList() {
-      return new Promise((resolve, reject) => {
-        fetch("/api/Spot", {
-          "method": "GET"
-        }).then((res) => {
-          res.json()
-            .then((jres) => {
-              setSpotList(jres)
-              resolve()
-            })
-            .catch((err) => {
-              reject(err)
-            })
-        })
+    getSpotList()
+  }, [])
+
+  useEffect(() => {
+    getTopSpots(3)
+  }, [])
+  
+  async function getSpotList() {
+    return new Promise((resolve, reject) => {
+      fetch("/api/Spot", {
+        "method": "GET"
+      }).then((res) => {
+        res.json()
+          .then((jres) => {
+            setSpotList(jres)
+            resolve()
+          })
           .catch((err) => {
             reject(err)
           })
-      });
-    }
-    getSpotList()
-  }, [])
+      })
+        .catch((err) => {
+          reject(err)
+        })
+    });
+  }
+  
+  async function getTopSpots(amount) {
+    return new Promise((resolve, reject) => {
+      fetch(`/api/Spot/gettop/${amount}`, {
+        "method": "GET"
+      }).then((res) => {
+        res.json()
+          .then((jres) => {
+            setTopSpots(jres)
+            resolve()
+          })
+          .catch((err) => {
+            reject(err)
+          })
+      })
+        .catch((err) => {
+          reject(err)
+        })
+    });
+  }
 
   const handleClick = () => {
     if (selectedSpot != null) {
@@ -43,7 +70,7 @@ function BurritoControl() {
   }
 
   const handleSpotSelection = (id) => {
-    const selection = spotList.filter(spot => spot.id === id)[0];
+    const selection = spotList.filter(spot => spot.spotId === id)[0];
     setSelectedSpot(selection);
   }
 
@@ -68,10 +95,16 @@ function BurritoControl() {
     buttonText = "Return to Spot List!";
 
   } else {
-    currVisibleState = <SpotList
-      onSpotSelection={handleSpotSelection}
-      setSpots={spotList}
-    />
+    currVisibleState = (
+      <React.Fragment>
+        <TopSpots 
+          onSpotSelection={handleSpotSelection}
+          topSpots={topSpots}/>
+        <SpotList
+          onSpotSelection={handleSpotSelection}
+          setSpots={spotList} />
+      </React.Fragment>
+    )
     buttonText = "Add a Spot!";
   }
 

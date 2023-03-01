@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 function SpotDetails(props) {
-    const { spot } = props;
+    const spot = props.spot;
 
     return (
         <div>
