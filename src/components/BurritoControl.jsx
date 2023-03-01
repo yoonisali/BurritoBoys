@@ -1,46 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import SpotDetails from "./SpotDetails";
 import SpotList from "./SpotList";
+import { db } from '../firebase.jsx';
+import { collection, addDoc } from 'firebase/firestore';
 import NewSpotForm from "./NewSpotForm";
-import PropTypes from "prop-types";
 
 
-function BurritoControl(props) {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [spotList, setSpotList] = useState([]);
-  const [error, setError] = useState(null)
+function BurritoControl() {
+  const [viewDetails, setViewDetails] = useState(false);
+  const [mainSpotList, setMainSpotList] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null)
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [spotList, setSpotList] = useState([]);
+  const [error, setError] = useState(null);
 
-
-  useEffect(() => {
-    async function getSpotList(spot) {
-      return new Promise((resolve, reject) => {
-        fetch("/api/Spot", {
-          "method": "GET"
-        }).then((res) => {
-          res.json()
-            .then((jres) => {
-              setSpotList(jres);
-              setIsLoaded(true);
-              console.log(`Fetch response: ${JSON.stringify(jres)}`)
-              resolve()
-            })
-            .catch((err) => {
-              setIsLoaded(true);
-              console.log(`failed to jsonify response: ${err}`)
-              reject(err)
-            })
-        })
+  async function getSpotList(spot) {
+    return new Promise((resolve, reject) => {
+      fetch("/api/Spot", {
+        "method": "GET"
+      }).then((res) => {
+        res.json()
+          .then((jres) => {
+            props.setSpots(jres);
+            setSpotList(jres)
+            setIsLoaded(true);
+            resolve()
+          })
           .catch((err) => {
+            setIsLoaded(true);
             setError(err)
-            console.log(`Fetch error: ${err}`)
             reject(err)
           })
-      });
-    }
-    getSpotList();
-  }, [])
+      })
+        .catch((err) => {
+          setError(err)
+          reject(err)
+        })
+    });
+  }
 
   const handleClick = () => {
     if (selectedSpot != null) {
@@ -51,65 +49,42 @@ function BurritoControl(props) {
     }
   }
 
-  const handleEditClick = () => {
-
-  }
-
-  const handleDeleteClick = () => {
-
+  const handleSpotSelection = () => {
   }
 
   const handleAddingNewSpotToList = (spotData) => {
     setFormVisibleOnPage(false);
-    setSpotList(spotData)
-  }
-
-  const handleSpotSelection = (id) => {
-    const selection = spotList.filter(spot => spot.spotId === id)[0];
-    setSelectedSpot(selection);
   }
 
   let currVisibleState = null;
   let buttonText = null;
-  
 
-  if (error) {
-    return <h1>Error: {error.message}</h1>
-  } else if (!isLoaded) {
-    return <h1>...Loading...</h1>
-  } else {
-  if (selectedSpot != null) {
+  if (viewDetails) {
     currVisibleState = <SpotDetails
-    spot={selectedSpot}
-    onClickingEdit={handleEditClick}
-    onClickingDelete={handleDeleteClick}
     />
     buttonText = "Return to Spot List!";
-  } else if(formVisibleOnPage) {
-    currVisibleState = <NewSpotForm 
-    onNewSpotCreation={handleAddingNewSpotToList}
-    onClick={handleClick}
+  } else if (formVisibleOnPage) {
+    currVisibleState = <NewSpotForm
+      onNewSpotCreation={handleAddingNewSpotToList}
+      onClick={handleClick}
     />
-    buttonText="Return to Spot List!";
+    buttonText = "Return to Spot List!";
 
   } else {
-    currVisibleState = <SpotList 
-    onSpotSelection ={handleSpotSelection}
+    currVisibleState = <SpotList
+      onSpotSelection={handleSpotSelection}
+      setSpots={setMainSpotList}
     />
     buttonText = "Add a Spot!";
   }
 
   return (
     <React.Fragment>
-    {currVisibleState}
-    <button className="bg-red-300 rounded p-1" onClick={handleClick}>{buttonText}</button>
+      {currVisibleState}
+      <button className="bg-red-300 rounded p-1" onClick={handleClick}>{buttonText}</button>
     </React.Fragment>
   )
 
-}
-
-BurritoControl.propTypes = {
-  spotList: PropTypes.array, 
 }
 
 export default BurritoControl;
