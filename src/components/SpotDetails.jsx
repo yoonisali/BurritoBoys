@@ -17,7 +17,6 @@ function SpotDetails(props) {
     );
 }
 
-
 SpotDetails.propTypes = {
     spot: PropTypes.object,
     onClickingEdit: PropTypes.func,
