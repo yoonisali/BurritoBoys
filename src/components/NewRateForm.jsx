@@ -2,13 +2,13 @@ import PropTypes from "prop-types";
 import { BodyFetch } from "../actions/utils";
 
 export default function NewRateForm(props) {
-  const spotId = props.spotId;
+  const { spot } = props;
 
   function handleSubmit(event) {
     event.preventDefault();
     const newRate = {
       rate: parseInt(event.target.rate.value),
-      spotId: spotId
+      spotId: spot.spotId
     }
     BodyFetch("/api/Rating", "POST", newRate)
     .then(() => props.onClick())
