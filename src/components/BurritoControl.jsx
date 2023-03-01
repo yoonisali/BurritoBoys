@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import SpotDetails from "./SpotDetails";
 import SpotList from "./SpotList";
 import NewSpotForm from "./NewSpotForm";
+import PropTypes from "prop-types";
 
 
-function BurritoControl() {
+function BurritoControl(props) {
+
   const [viewDetails, setViewDetails] = useState(false);
   const [mainSpotList, setMainSpotList] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null)
@@ -27,13 +29,15 @@ function BurritoControl() {
 
   }
 
-  const handleSpotSelection = (id) => {
-    const selection = mainSpotList.filter(spot => spot.id === id)[0];
-    setSelectedSpot(selection);
-  }
-
   const handleAddingNewSpotToList = (spotData) => {
     setFormVisibleOnPage(false);
+    setMainSpotList(spotData)
+  }
+
+  const handleSpotSelection = (id) => {
+    const selection = props.spotList.filter(spot => spot.spotId === id)[0];
+    setSelectedSpot(selection);
+    console.log(props.spotList)
   }
 
   let currVisibleState = null;
@@ -67,6 +71,10 @@ function BurritoControl() {
     </React.Fragment>
   )
 
+}
+
+BurritoControl.propTypes = {
+  spotList: PropTypes.array, 
 }
 
 export default BurritoControl;
