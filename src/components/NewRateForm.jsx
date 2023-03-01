@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { PostFetch } from "../actions/utils";
+import { BodyFetch } from "../actions/utils";
 
 export default function NewRateForm(props) {
   const spotId = props.spotId;
@@ -10,7 +10,7 @@ export default function NewRateForm(props) {
       rate: parseInt(event.target.rate.value),
       spotId: spotId
     }
-    PostFetch("/api/Rating", newRate)
+    BodyFetch("/api/Rating", "POST", newRate)
       .catch((err) => {
         console.log(err)
       })

@@ -7,10 +7,10 @@ export function GetSpotById(spotList, id) {
   return null
 }
 
-export async function PostFetch(url, obj) {
+export async function BodyFetch(url, method, obj) {
   return new Promise((resolve, reject) => {
     fetch(url, {
-      "method": "POST",
+      "method": method,
       "headers": {
         'Accept': 'text/plain',
         'Content-Type': 'application/json'

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { PostFetch } from "../actions/utils";
+import { BodyFetch } from "../actions/utils";
 
 function NewSpotForm(props) {
   function handleNewSpotSubmission(e) {
@@ -14,7 +14,7 @@ function NewSpotForm(props) {
       averageRating: 0
     };
     console.log(JSON.stringify(target))
-    PostFetch("/api/Spot", target)
+    BodyFetch("/api/Spot", "POST", target)
       .then(() => props.onClick())
       .catch((err) => {
         console.log(err)
