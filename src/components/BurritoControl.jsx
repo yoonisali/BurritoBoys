@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SpotDetails from "./SpotDetails";
 import SpotList from "./SpotList";
 import NewSpotForm from "./NewSpotForm";
@@ -6,11 +6,41 @@ import PropTypes from "prop-types";
 
 
 function BurritoControl(props) {
-
-  // const [viewDetails, setViewDetails] = useState(false); 
-  const [mainSpotList, setMainSpotList] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [spotList, setSpotList] = useState([]);
+  const [error, setError] = useState(null)
   const [selectedSpot, setSelectedSpot] = useState(null)
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false)
+
+
+  useEffect(() => {
+    async function getSpotList(spot) {
+      return new Promise((resolve, reject) => {
+        fetch("/api/Spot", {
+          "method": "GET"
+        }).then((res) => {
+          res.json()
+            .then((jres) => {
+              setSpotList(jres);
+              setIsLoaded(true);
+              console.log(`Fetch response: ${JSON.stringify(jres)}`)
+              resolve()
+            })
+            .catch((err) => {
+              setIsLoaded(true);
+              console.log(`failed to jsonify response: ${err}`)
+              reject(err)
+            })
+        })
+          .catch((err) => {
+            setError(err)
+            console.log(`Fetch error: ${err}`)
+            reject(err)
+          })
+      });
+    }
+    getSpotList();
+  }, [])
 
   const handleClick = () => {
     if (selectedSpot != null) {
@@ -31,17 +61,23 @@ function BurritoControl(props) {
 
   const handleAddingNewSpotToList = (spotData) => {
     setFormVisibleOnPage(false);
-    setMainSpotList(spotData)
+    setSpotList(spotData)
   }
 
   const handleSpotSelection = (id) => {
-    const selection = mainSpotList.filter(spot => spot.spotId === id)[0];
+    const selection = spotList.filter(spot => spot.spotId === id)[0];
     setSelectedSpot(selection);
   }
 
   let currVisibleState = null;
   let buttonText = null;
+  
 
+  if (error) {
+    return <h1>Error: {error.message}</h1>
+  } else if (!isLoaded) {
+    return <h1>...Loading...</h1>
+  } else {
   if (selectedSpot != null) {
     currVisibleState = <SpotDetails
     spot={selectedSpot}
