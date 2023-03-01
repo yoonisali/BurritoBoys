@@ -1,34 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { PostFetch } from "../actions/utils";
 
 function NewSpotForm(props) {
-  async function createSpot(spot) {
-    return new Promise((resolve, reject) => {
-      fetch("/api/Spot", {
-        "method": "POST",
-        "headers": {
-          'Accept': 'text/plain',
-          'Content-Type': 'application/json'
-        },
-        "body": JSON.stringify(spot)
-      }).then((res) => {
-        res.json()
-          .then((jres) => {
-            console.log(`Fetch response: ${JSON.stringify(jres)}`)
-            resolve()
-          })
-          .catch((err) => {
-            console.log(`failed to jsonify response: ${err}`)
-            reject(err)
-          })
-      })
-      .catch((err) => {
-        console.log(`Fetch error: ${err}`)
-        reject(err)
-      })
-    })
-  }
-
   function handleNewSpotSubmission(e) {
     e.preventDefault();
     const target = {
@@ -40,7 +14,7 @@ function NewSpotForm(props) {
       averageRating: 0
     };
     console.log(JSON.stringify(target))
-    createSpot(target)
+    PostFetch("/api/Spot", target)
       .then(() => props.onClick())
       .catch((err) => {
         console.log(err)

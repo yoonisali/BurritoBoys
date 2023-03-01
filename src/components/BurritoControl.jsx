@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import SpotDetails from "./SpotDetails";
 import SpotList from "./SpotList";
 import NewSpotForm from "./NewSpotForm";
+import NewSalsaForm from "./NewSalsaForm"
 
 
 function BurritoControl() {
