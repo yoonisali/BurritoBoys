@@ -5,6 +5,8 @@ import { v4 } from 'uuid'
 
 function SpotList(props) {
   const { setSpots } = props;
+  // console.log(setSpots[1].spotId)
+  // console.log(setSpots[1].name)
     return (
       <div className="my-4">
         <h1 className="text-2xl font-bold">Spot List</h1>
@@ -14,7 +16,10 @@ function SpotList(props) {
             whenSpotClicked={props.onSpotSelection}
               name={spot.name}
               city={spot.city}
-              id={spot.spotId} />
+              address={spot.address}
+              website={spot.website}
+              id={spot.spotId}
+            />
           </div>
         )}
       </div>
