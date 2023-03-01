@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 function BurritoControl(props) {
 
-  const [viewDetails, setViewDetails] = useState(false);
+  // const [viewDetails, setViewDetails] = useState(false); 
   const [mainSpotList, setMainSpotList] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null)
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false)
@@ -35,9 +35,8 @@ function BurritoControl(props) {
   }
 
   const handleSpotSelection = (id) => {
-    const selection = props.spotList.filter(spot => spot.spotId === id)[0];
+    const selection = mainSpotList.filter(spot => spot.spotId === id)[0];
     setSelectedSpot(selection);
-    console.log(props.spotList)
   }
 
   let currVisibleState = null;
