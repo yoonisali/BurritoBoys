@@ -6,11 +6,15 @@
 
 ![Project Diagram](./src/assets/img/diagram.png) 
 
-### API Setup
-1. add .env file to root directory
-2. input the following code 
+### Firebase Setup
+
 ```js
-REACT_APP_API_KEY=[Your NYT API key goes here]
+REACT_APP_FIREBASE_API_KEY = "[KEY FROM WEB API]"
+REACT_APP_FIREBASE_AUTH_DOMAIN = "[KEY FROM WEB API]"
+REACT_APP_FIREBASE_PROJECT_ID = "[KEY FROM WEB API]"
+REACT_APP_FIREBASE_STORAGE_BUCKET =  "[KEY FROM WEB API]"
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID =  "[KEY FROM WEB API]"
+REACT_APP_FIREBASE_APP_ID = "[KEY FROM WEB API]"
 ```
 
 ## Available Scripts
