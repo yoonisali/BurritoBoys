@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import SpotDetails from "./SpotDetails";
 import SpotList from "./SpotList";
 import NewSpotForm from "./NewSpotForm";
-import NewSalsaForm from "./NewSalsaForm"
-
+import NewSalsaForm from "./NewSalsaForm";
+import NewRateForm from './NewRateForm';
 
 function BurritoControl() {
   const [selectedSpot, setSelectedSpot] = useState(null)
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false)
   const [spotList, setSpotList] = useState([]);
+  const [salsaPage, setSalsaPage] = useState(false);
+  const [reviewPage, setReviewPage] = useState(false);
 
   useEffect(() => {
     async function getSpotList() {
@@ -37,6 +39,8 @@ function BurritoControl() {
     if (selectedSpot != null) {
       setSelectedSpot(null);
       setFormVisibleOnPage(false);
+      setReviewPage(false);
+      setSalsaPage(false);
     } else {
       setFormVisibleOnPage(!formVisibleOnPage)
     }
@@ -52,12 +56,33 @@ function BurritoControl() {
     setSpotList(spotData);
   }
 
+  const handleReviewClick = () => {
+    setReviewPage(true);
+  }
+
+  const handleSalsaClick = () => {
+    setSalsaPage(true);
+  }
+
   let currVisibleState = null;
   let buttonText = null;
 
-  if (selectedSpot !== null) {
+  if (reviewPage) {
+    currVisibleState = <NewRateForm 
+    spot={selectedSpot}
+    />
+    buttonText="Return to Spot List!"
+  } else if (salsaPage) {
+    currVisibleState = <NewSalsaForm
+    spot={selectedSpot}
+    />
+    buttonText="Return to Spot List!"
+  }
+  else if (selectedSpot !== null) {
     currVisibleState = <SpotDetails
     spot={selectedSpot}
+    onClickingReview={handleReviewClick}
+    onClickingSalsa={handleSalsaClick}
     />
     buttonText = "Return to Spot List!";
   } else if (formVisibleOnPage) {
@@ -66,7 +91,6 @@ function BurritoControl() {
       onClick={handleClick}
     />
     buttonText = "Return to Spot List!";
-
   } else {
     currVisibleState = <SpotList
       onSpotSelection={handleSpotSelection}
