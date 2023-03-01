@@ -2,14 +2,14 @@ import PropTypes from "prop-types";
 import { BodyFetch } from "../actions/utils";
 
 export default function NewSalsaForm(props) {
-  const spotId = props.spotId;
+  const { spot } = props;
 
   function handleSubmit(event) {
     event.preventDefault();
     const newSalsa = {
       name: event.target.name.value,
       description: event.target.description.value,
-      spotId: spotId
+      spotId: spot.spotId
     }
     console.log(JSON.stringify(newSalsa))
     BodyFetch("/api/Salsa", "POST", newSalsa)
@@ -31,7 +31,7 @@ export default function NewSalsaForm(props) {
 }
 
 NewSalsaForm.propTypes = {
-  spotId: PropTypes.number,
+  sphot: PropTypes.object,
   onNewSalsaCreation: PropTypes.func,
   onClick: PropTypes.func
 }
