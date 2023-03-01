@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import Spot from './Spot'
 
 
-function SpotList() {
+function SpotList(props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [spotList, setSpotList] = useState([]);
   const [error, setError] = useState(null)
@@ -28,6 +29,7 @@ function SpotList() {
             })
         })
           .catch((err) => {
+            setError(err)
             console.log(`Fetch error: ${err}`)
             reject(err)
           })
@@ -47,8 +49,12 @@ function SpotList() {
         {spotList.map((spot, index) =>
           <div key={index}>
             <Spot
+              whenSpotClicked={props.onSpotSelection}
               name={spot.name}
               city={spot.city}
+              address={spot.address}
+              state={spot.state}
+              averageRating={spot.averageRating}
             />
           </div>
         )}
@@ -57,5 +63,9 @@ function SpotList() {
   }
 }
 
+SpotList.propTypes = {
+  onSpotSelection: PropTypes.func,
+  spotList: PropTypes.array
+}
 
 export default SpotList;

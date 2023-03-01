@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import SpotDetails from "./SpotDetails";
 import SpotList from "./SpotList";
-import { db } from '../firebase.jsx';
-import { collection, addDoc } from 'firebase/firestore';
 import NewSpotForm from "./NewSpotForm";
 
 
@@ -21,7 +19,17 @@ function BurritoControl() {
     }
   }
 
-  const handleSpotSelection = () => {
+  const handleEditClick = () => {
+
+  }
+
+  const handleDeleteClick = () => {
+
+  }
+
+  const handleSpotSelection = (id) => {
+    const selection = mainSpotList.filter(spot => spot.id === id)[0];
+    setSelectedSpot(selection);
   }
 
   const handleAddingNewSpotToList = (spotData) => {
@@ -31,8 +39,11 @@ function BurritoControl() {
   let currVisibleState = null;
   let buttonText = null;
 
-  if (viewDetails) {
+  if (selectedSpot != null) {
     currVisibleState = <SpotDetails
+    spot={selectedSpot}
+    onClickingEdit={handleEditClick}
+    onClickingDelete={handleDeleteClick}
     />
     buttonText = "Return to Spot List!";
   } else if(formVisibleOnPage) {
