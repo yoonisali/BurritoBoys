@@ -4,6 +4,7 @@ import SpotList from "./SpotList";
 import { db } from '../firebase.jsx';
 import { collection, addDoc } from 'firebase/firestore';
 import NewSpotForm from "./NewSpotForm";
+import NewSalsaForm from "./NewSalsaForm"
 
 
 function BurritoControl() {

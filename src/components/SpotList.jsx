@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Spot from './Spot'
-import { GetSpotById } from "../actions/SpotUtils";
+import { GetSpotById } from "../actions/utils";
 
 
 function SpotList(props) {
