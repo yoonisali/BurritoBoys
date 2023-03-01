@@ -12,6 +12,6 @@ function Review(props) {
 
 Review.propTypes = {
 rate: PropTypes.number,
-spotId: PropTypes.string
+spotId: PropTypes.number
 }
 export default Review;  

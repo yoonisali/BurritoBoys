@@ -11,7 +11,9 @@ export default function NewSalsaForm(props) {
       description: event.target.description.value,
       spotId: spotId
     }
+    console.log(JSON.stringify(newSalsa))
     BodyFetch("/api/Salsa", "POST", newSalsa)
+    .then(() => props.onClick())
     .catch((err) => {
       console.log(err)
     })
@@ -29,5 +31,7 @@ export default function NewSalsaForm(props) {
 }
 
 NewSalsaForm.propTypes = {
-  spotId: PropTypes.number
+  spotId: PropTypes.number,
+  onNewSalsaCreation: PropTypes.func,
+  onClick: PropTypes.func
 }

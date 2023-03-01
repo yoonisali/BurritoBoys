@@ -105,6 +105,11 @@ function BurritoControl() {
     setSpotList(spotData);
   }
 
+  const handleAddingNewSalsaToList = (salsaData) => {
+    setSalsaPage(false);
+    setSalsaList(salsaData);
+  }
+
   const handleReviewClick = () => {
     setReviewPage(true);
   }
@@ -119,15 +124,17 @@ function BurritoControl() {
   if (reviewPage) {
     currVisibleState = <NewRateForm 
     spot={selectedSpot}
+    onClick={handleClick}
     />
     buttonText="Return to Spot List!"
   } else if (salsaPage) {
     currVisibleState = <NewSalsaForm
     spot={selectedSpot}
+    onNewSalsaCreation={handleAddingNewSalsaToList}
+    onClick={handleClick}
     />
     buttonText="Return to Spot List!"
-  }
-  else if (selectedSpot !== null) {
+  } else if (selectedSpot !== null) {
     currVisibleState = <SpotDetails
     spot={selectedSpot}
     ratingList={ratingList}
@@ -156,7 +163,6 @@ function BurritoControl() {
       <button className="bg-red-300 rounded p-1" onClick={handleClick}>{buttonText}</button>
     </React.Fragment>
   )
-
 }
 
 export default BurritoControl;
