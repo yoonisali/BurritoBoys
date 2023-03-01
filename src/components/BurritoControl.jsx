@@ -10,7 +10,10 @@ function BurritoControl() {
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false)
   const [spotList, setSpotList] = useState([]);
   const [salsaPage, setSalsaPage] = useState(false);
+  const [salsaList, setSalsaList] = useState([]);
   const [reviewPage, setReviewPage] = useState(false);
+  const [ratingList, setRatingList] = useState([]);
+
 
   useEffect(() => {
     async function getSpotList() {
@@ -33,6 +36,52 @@ function BurritoControl() {
       });
     }
     getSpotList()
+  }, [])
+
+  useEffect(() => {
+    async function getReviewList() {
+      return new Promise((resolve, reject) => {
+        fetch("/api/Rating", {
+          "method": "GET"
+        }).then((res) => {
+          res.json()
+            .then((jres) => {
+              setRatingList(jres)
+              resolve()
+            })
+            .catch((err) => {
+              reject(err)
+            })
+        })
+          .catch((err) => {
+            reject(err)
+          })
+      });
+    }
+    getReviewList()
+  }, [])
+
+  useEffect(() => {
+    async function getSalsaList() {
+      return new Promise((resolve, reject) => {
+        fetch("/api/Salsa", {
+          "method": "GET"
+        }).then((res) => {
+          res.json()
+            .then((jres) => {
+              setSalsaList(jres)
+              resolve()
+            })
+            .catch((err) => {
+              reject(err)
+            })
+        })
+          .catch((err) => {
+            reject(err)
+          })
+      });
+    }
+    getSalsaList()
   }, [])
 
   const handleClick = () => {
@@ -81,6 +130,8 @@ function BurritoControl() {
   else if (selectedSpot !== null) {
     currVisibleState = <SpotDetails
     spot={selectedSpot}
+    ratingList={ratingList}
+    salsaList={salsaList}
     onClickingReview={handleReviewClick}
     onClickingSalsa={handleSalsaClick}
     />
