@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { PostFetch } from "../actions/utils";
+import { BodyFetch } from "../actions/utils";
 
 export default function NewSalsaForm(props) {
   const spotId = props.spotId;
@@ -11,10 +11,10 @@ export default function NewSalsaForm(props) {
       description: event.target.description.value,
       spotId: spotId
     }
-    PostFetch("/api/Salsa", newSalsa)
-      .catch((err) => {
-        console.log(err)
-      })
+    BodyFetch("/api/Salsa", "POST", newSalsa)
+    .catch((err) => {
+      console.log(err)
+    })
   }
   return (
     <form onSubmit={handleSubmit} className="mb-6">
