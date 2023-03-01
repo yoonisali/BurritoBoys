@@ -13,7 +13,7 @@ function Salsa(props) {
 Salsa.propTypes = {
 name: PropTypes.string,
 description: PropTypes.string,
-spotId: PropTypes.string
+spotId: PropTypes.number
 }
 
 export default Salsa;  

@@ -11,6 +11,7 @@ export default function NewRateForm(props) {
       spotId: spotId
     }
     BodyFetch("/api/Rating", "POST", newRate)
+    .then(() => props.onClick())
       .catch((err) => {
         console.log(err)
       })
@@ -25,5 +26,6 @@ export default function NewRateForm(props) {
 }
 
 NewRateForm.propTypes = {
-  spotId: PropTypes.number
+  spotId: PropTypes.number,
+  onClick: PropTypes.func
 }
