@@ -35,24 +35,25 @@ function BurritoControl() {
     currVisibleState = <SpotDetails
     />
     buttonText = "Return to Spot List!";
-  } else if(formVisibleOnPage) {
-    currVisibleState = <NewSpotForm 
-    onNewSpotCreation={handleAddingNewSpotToList}
-    onClick={handleClick}
+  } else if (formVisibleOnPage) {
+    currVisibleState = <NewSpotForm
+      onNewSpotCreation={handleAddingNewSpotToList}
+      onClick={handleClick}
     />
-    buttonText="Return to Spot List!";
+    buttonText = "Return to Spot List!";
 
   } else {
-    currVisibleState = <SpotList 
-    onSpotSelection ={handleSpotSelection}
+    currVisibleState = <SpotList
+      onSpotSelection={handleSpotSelection}
+      setSpots={setMainSpotList}
     />
     buttonText = "Add a Spot!";
   }
 
   return (
     <React.Fragment>
-    {currVisibleState}
-    <button className="bg-red-300 rounded p-1" onClick={handleClick}>{buttonText}</button>
+      {currVisibleState}
+      <button className="bg-red-300 rounded p-1" onClick={handleClick}>{buttonText}</button>
     </React.Fragment>
   )
 
