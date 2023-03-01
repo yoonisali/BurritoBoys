@@ -17,7 +17,7 @@ Spot.propTypes = {
   city: PropTypes.string,
   address: PropTypes.string,
   website: PropTypes.string,
-  id: PropTypes.string
+  id: PropTypes.number
 }
 
 export default Spot;
