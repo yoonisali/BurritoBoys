@@ -42,7 +42,7 @@ function BurritoControl() {
   }
 
   const handleSpotSelection = (id) => {
-    const selection = spotList.filter(spot => spot.id === id)[0];
+    const selection = spotList.filter(spot => spot.spotId === id)[0];
     setSelectedSpot(selection);
   }
 
